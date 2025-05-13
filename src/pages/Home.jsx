@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
-  return <div>pagina film</div>;
+  return <h1>Tutti i Film</h1>;
 };
+
 export default Home;
