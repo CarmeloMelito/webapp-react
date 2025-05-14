@@ -24,29 +24,34 @@ export default function FilmPage() {
   return (
     <>
       <div>
-        <div>
+        <div className="container my-4">
           <h2> CERCA FILM</h2>
-          <form onSubmit={searchFilms}>
+          <form onSubmit={searchFilms} className="d-flex">
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               type="search"
               placeholder="Search"
               aria-label="Search"
+              className="form-control me-2"
             />
-            <button>Search</button>
+            <button className="btn btn-outline-primary" type="submit">
+              Search
+            </button>
           </form>
         </div>
-        <div>
-          {film.length > 0 ? (
-            film.map((film) => (
-              <div key={film.id}>
-                <MovieCard data={film} />
-              </div>
-            ))
-          ) : (
-            <div>Nessun Film</div>
-          )}
+        <div className="container">
+          <div className="row">
+            {film.length > 0 ? (
+              film.map((film) => (
+                <div key={film.id} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+                  <MovieCard data={film} />
+                </div>
+              ))
+            ) : (
+              <div className="text-light">Nessun Film</div>
+            )}
+          </div>
         </div>
       </div>
     </>

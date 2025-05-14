@@ -5,11 +5,16 @@ export default function MovieCard({ data }) {
 
   return (
     <>
-      <img src={image} alt="images" />
-      <p>{abstract}</p>
-      <Link to={`/film/${id}`} data={data}>
-        Details
-      </Link>
+      <div className="card mb-4">
+        <img src={image} className="card-img-top" alt="images" />
+        <div className="card-body">
+          <h5 className="card-title">{title}</h5>
+          <p className="card-text"> {abstract}</p>
+          <Link className="btn btn-primary" to={`/film/${id}`} data={data}>
+            Details
+          </Link>
+        </div>
+      </div>
     </>
   );
 }
