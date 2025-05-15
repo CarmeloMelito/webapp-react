@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import StarRating from "../components/StarRating";
 export default function MovieDetail() {
   const { id } = useParams();
   const [film, setFilm] = useState({});
@@ -53,37 +53,43 @@ export default function MovieDetail() {
 
   return (
     <>
-      <div>
+      <div className="container mt-5">
         <div>
-          <header>
-            <h1>{film.title}</h1>
-            <h2>{film.director}</h2>
+          <header className="mb-4">
+            <h1 className="display-4">{film.title}</h1>
+            <h2 className="text-muted">{film.director}</h2>
             <p>{film.abstract}</p>
           </header>
         </div>
 
         <hr />
-
-        {film && film.reviews ? (
-          film.reviews.map((comm) => (
-            <div key={comm.id}>
-              <h2>{comm.name}</h2>
-              <h4>Voto: {comm.vote}</h4>
-              <p>{comm.text}</p>
-            </div>
-          ))
-        ) : (
-          <div>Nessuna Recensione</div>
-        )}
+        <section className="mb-5">
+          {film && film.reviews ? (
+            film.reviews.map((comm) => (
+              <div className="card mb-3" key={comm.id}>
+                <h5 className="card-title">{comm.name}</h5>
+                <div className="mb-2">
+                  <StarRating vote={comm.vote} />
+                </div>
+                <p className="card-text">{comm.text}</p>
+              </div>
+            ))
+          ) : (
+            <div className="alert alert-info">Nessuna recensione</div>
+          )}
+        </section>
 
         {/* Aggiunta recensione */}
         <div>
           <h2>Aggiungi Recensione:</h2>
-          <form onSubmit={sendData}>
-            <div>
-              <label>Name:</label>
+          <form onSubmit={sendData} className="p-4 border rounded bg-light">
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Nome
+              </label>
               <input
                 type="text"
+                className="form-control"
                 id="name"
                 name="name"
                 placeholder="Inserisci il tuo nome"
@@ -92,8 +98,13 @@ export default function MovieDetail() {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="vote">Voto :</label>
+            <div className="mb-3">
+              <label htmlFor="vote" className="form-label">
+                Voto :
+              </label>
+              <div className="mb-2">
+                <StarRating vote={formData.vote} />
+              </div>
               <input
                 type="number"
                 id="vote"
@@ -105,17 +116,23 @@ export default function MovieDetail() {
                 required
               />
             </div>
-            <div>
-              <label htmlFor="text">Testo:</label>
+            <div className="mb-3">
+              <label htmlFor="text" className="form-label">
+                Recensione
+              </label>
               <textarea
+                className="form-control"
                 id="text"
                 name="text"
                 rows="3"
                 value={formData.text}
                 onChange={handleFormData}
+                required
               ></textarea>
             </div>
-            <button type="submit">Invia</button>
+            <button type="submit" className="btn btn-primary">
+              Aggiungi Recensione
+            </button>
           </form>
         </div>
       </div>
